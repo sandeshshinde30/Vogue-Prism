@@ -7,6 +7,7 @@ import { RxUpdate } from "react-icons/rx";
 import { FaUserEdit } from "react-icons/fa";
 import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
+import DeleteProduct from "../components/DeleteProduct";
 
 export default function AdminMain() {
   const [activeTab, setActiveTab] = useState("Dashboard"); // Track the active main tab
@@ -29,7 +30,7 @@ export default function AdminMain() {
         case "Update":
           return <UpdateProduct/>;
         case "Delete":
-          return <div className="p-10">Delete items here.</div>;
+          return <DeleteProduct/>;
         default:
           return <div className="p-10">Select an action from Collections.</div>;
       }
