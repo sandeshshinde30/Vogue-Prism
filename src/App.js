@@ -14,8 +14,10 @@ class App extends Component {
     return (
      <Router>
       <Routes>
-        <Route path='/' element={<AdminMain/>}/>
+        <Route path='/' element={<Home/>}/>
         <Route path='/product' element={<Product/>}/>
+        <Route path='/admin' element={<AdminMain/>}/>
+
       </Routes>
      </Router>
     );
