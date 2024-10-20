@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-export default function DeleteProduct() {
+export default function SearchUpdateProduct() {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -31,7 +31,7 @@ export default function DeleteProduct() {
     const [products, setProducts] = useState(trending);
 
     // Handle product deletion
-    const handleDelete = (index) => {
+    const handleSelect = (index) => {
         const updatedProducts = products.filter((_, i) => i !== index);
         setProducts(updatedProducts);
     };
@@ -39,7 +39,7 @@ export default function DeleteProduct() {
     return (
         <div className="h-full w-full">
     <div className="w-full text-center mt-0 text-[18px] text-gray-700">
-        <h1 className="uppercase font-bold">delete collection</h1>
+        <h1 className="uppercase font-bold">Update collection</h1>
     </div>
 
     <div className="flex h-auto mt-2 px-10 py-5 gap-10">
@@ -97,6 +97,10 @@ export default function DeleteProduct() {
                 placeholder="Search Name"
             />
         </div>
+
+        <div className="bg-dark-green text-white p-2 rounded-2xl">
+                <button>Search</button>
+        </div>
     </div>
 
     {/* Product Grid with Scrollable Container */}
@@ -115,10 +119,10 @@ export default function DeleteProduct() {
                         
                         {/* Delete Button - Visible on Hover */}
                         <button
-                            className="absolute top-2 right-2 bg-red-600 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            onClick={() => handleDelete(index)}
+                            className="absolute top-2 right-2 bg-yellow-600 text-white text-sm px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            onClick={() => handleSelect(index)}
                         >
-                            Delete
+                            Update
                         </button>
                     </div>
 

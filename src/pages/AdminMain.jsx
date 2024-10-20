@@ -5,9 +5,10 @@ import { BiSolidOffer, BiSolidLogOut } from "react-icons/bi";
 import { IoBagAdd } from "react-icons/io5";
 import { RxUpdate } from "react-icons/rx";
 import { FaUserEdit } from "react-icons/fa";
-import AddProduct from "../components/AddProduct";
-import UpdateProduct from "../components/UpdateProduct";
-import DeleteProduct from "../components/DeleteProduct";
+import AddProduct from "../components/Collection/AddProduct";
+
+import DeleteProduct from "../components/Collection/DeleteProduct";
+import UpdateProduct from "../components/Collection/UpdateProduct";
 
 export default function AdminMain() {
   const [activeTab, setActiveTab] = useState("Dashboard");
