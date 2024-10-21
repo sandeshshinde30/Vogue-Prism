@@ -17,6 +17,7 @@ class App extends Component {
         <Route path='/' element={<Home/>}/>
         <Route path='/product' element={<Product/>}/>
         <Route path='/admin' element={<AdminMain/>}/>
+        
 
       </Routes>
      </Router>

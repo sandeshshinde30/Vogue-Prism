@@ -7,21 +7,25 @@ export default function AddProduct() {
     const [images, setImages] = useState([]);
     const [hoveredIndex, setHoveredIndex] = useState(null); // Track which image is being hovered
 
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [mrp, setMrp] = useState("");
+    const [price, setPrice] = useState("");
+    const [sizes, setAddedSizes] = useState([]);
     const [selectedSize, setSelectedSize] = useState("");
-    const [addedSizes, setAddedSizes] = useState([]);
-    const [selectedColor, setSelectedColor] = useState("#ffffff"); // Default color
-    const [addedColors, setAddedColors] = useState([]);
+    const [colors, setAddedColors] = useState([]);
+    const [selectedColor, setSelectedColor] = useState("#ffffff");
     const [showPicker, setShowPicker] = useState(false);
 
     const handleAddSize = () => {
-        if (selectedSize && !addedSizes.includes(selectedSize)) {
+        if (selectedSize && !sizes.includes(selectedSize)) {
             setAddedSizes((prevSizes) => [...prevSizes, selectedSize]);
             setSelectedSize(""); // Clear the dropdown after adding
         }
     };
-
+    
     const handleAddColor = () => {
-        if (selectedColor && !addedColors.includes(selectedColor)) {
+        if (selectedColor && !colors.includes(selectedColor)) {
             setAddedColors((prevColors) => [...prevColors, selectedColor]);
             setSelectedColor("#ffffff"); // Reset to default color after adding
         }
@@ -36,6 +40,46 @@ export default function AddProduct() {
 
     const handleDeleteImage = (index) => {
         setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    };
+
+    const handleSubmit = async () => {
+        const productData = {
+            title,
+            description,
+            mrp: parseFloat(mrp),
+            price: parseFloat(price),
+            sizes,
+            colors,
+            images
+        };
+
+        try {
+            const response = await fetch('http://localhost:3001/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            });
+
+            if (response.ok) {
+                alert('Product added successfully!');
+                console.log({ title, description, mrp, price, colors });
+                // Clear form after successful submission
+                setTitle("");
+                setDescription("");
+                setMrp("");
+                setPrice("");
+                setAddedSizes([]);
+                setAddedColors([]);
+                setImages([]);
+            } else {
+                alert('Failed to add product.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error adding product.');
+        }
     };
 
     return (
@@ -57,6 +101,8 @@ export default function AddProduct() {
                                     type="text"
                                     className="w-full bg-dark-green rounded-md h-7 text-white pl-2 placeholder-white"
                                     placeholder="Enter Title"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)} 
                                 />
                             </div>
                             <div className="w-full px-4 flex flex-col gap-2">
@@ -64,6 +110,8 @@ export default function AddProduct() {
                                 <textarea
                                     className="w-full bg-dark-green rounded-md h-24 pl-2 pt-2 text-white placeholder-white resize-none"
                                     placeholder="Enter Description"
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)} 
                                 ></textarea>
                             </div>
                         </div>
@@ -81,12 +129,16 @@ export default function AddProduct() {
                                     type="number"
                                     className="w-full bg-dark-green rounded-md h-7 text-white pl-2 text-center placeholder-white"
                                     placeholder="Enter MRP"
+                                    value={mrp}
+                                    onChange={(e) => setMrp(e.target.value)} 
                                 />
                                 <h1>Actual Price</h1>
                                 <input
                                     type="number"
                                     className="w-full bg-dark-green rounded-md h-7 text-white pl-2 text-center placeholder-white"
                                     placeholder="Enter Price"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)} 
                                 />
                             </div>
                         </div>
@@ -117,7 +169,7 @@ export default function AddProduct() {
                             <div className="mt-2">
                                 <h1 className="font-semibold">Added Sizes</h1>
                                 <div className="flex flex-wrap gap-2">
-                                    {addedSizes.map((size, index) => (
+                                    {sizes.map((size, index) => (
                                         <div key={index} className="text-center text-white rounded-md bg-dark-green px-2 py-1">
                                             {size}
                                         </div>
@@ -155,12 +207,8 @@ export default function AddProduct() {
 
                                     {/* Display Added Colors */}
                                     <div className="grid grid-cols-4 gap-2 px-5 mt-2">
-                                        {addedColors.map((color, index) => (
-                                            <div
-                                                key={index}
-                                                className="w-full h-10 rounded-md"
-                                                style={{ backgroundColor: color }}
-                                            />
+                                        {colors.map((color, index) => (
+                                            <div key={index} className="w-full h-10 rounded-md" style={{ backgroundColor: color }} />
                                         ))}
                                     </div>
                                 </div>
@@ -182,36 +230,42 @@ export default function AddProduct() {
                                     onMouseEnter={() => setHoveredIndex(index)} // Set hovered index on mouse enter
                                     onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index on mouse leave
                                 >
-                                    <img src={imgSrc} alt={`Uploaded preview ${index}`} className="h-full w-full object-cover" />
-                                    {hoveredIndex === index && ( // Show delete button on hover
+                                    <img src={imgSrc} alt={`Uploaded Preview ${index}`} className="w-full h-24 object-cover rounded-md" />
+                                    {/* Delete button shown on hover */}
+                                    {hoveredIndex === index && (
                                         <button
-                                            onClick={() => handleDeleteImage(index)} // Delete image on button click
-                                            className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-md"
+                                            onClick={() => handleDeleteImage(index)}
+                                            className="absolute top-1 right-1 text-red-500"
                                         >
-                                            Delete
+                                            X
                                         </button>
                                     )}
                                 </div>
                             ))}
-                            {/* Image upload button */}
-                            <div className="flex bg-dark-green rounded-md">
-                                <label htmlFor="image-upload" className="h-full w-full p-7 flex items-center justify-center cursor-pointer">
-                                    <BiSolidImageAdd className="text-white" />
-                                </label>
+                            {/* File Input for uploading new images */}
+                            <label className="flex flex-col items-center justify-center w-full h-24 bg-darker-green border-2 border-dashed border-light-gray rounded-md cursor-pointer">
                                 <input
-                                    id="image-upload"
                                     type="file"
                                     accept="image/*"
-                                    onChange={handleImageChange}
-                                    className="hidden"
                                     multiple
+                                    className="hidden"
+                                    onChange={handleImageChange}
                                 />
-                            </div>
+                                <BiSolidImageAdd className="text-4xl text-white" />
+                                <span className="text-white">Upload Images</span>
+                            </label>
                         </div>
                     </div>
-                    <button className="w-full mt-8 font-extrabold bg-dark-green rounded-lg text-white h-8">ADD</button>
                 </div>
             </div>
+
+            {/* Submit Button */}
+            <button
+                onClick={handleSubmit}
+                className="mt-4 mb-2 w-full h-12 bg-dark-green text-white font-semibold rounded-lg hover:bg-darker-green transition-colors"
+            >
+                ADD PRODUCT
+            </button>
         </div>
     );
 }
