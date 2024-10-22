@@ -1,0 +1,110 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+:root {
+    --gray: #4e4e4e;
+    --green: #235347;
+    --heading1: 2.5rem; 
+    --heading2: 2rem;
+}
+/* html {
+    font-size: 62.5%;
+    font-family: 'Noto Sans', sans-serif;
+    scroll-behavior: smooth;
+} */
+body {
+    padding-top: 65px;
+}
+
+.about-wrapper {
+    /* border: 5px solid green; */
+    font-size: 1.6rem;
+    padding: 4em 0;
+}
+.about-wrapper .about {
+    /* border: 5px solid red; */
+    display: flex;
+    /* box-shadow: 0 0 10px #e9e9e9; */
+}
+.about-wrapper .about .box {
+    width: 50%;
+    height: 300px;
+}
+.about-wrapper .about .text-box {
+    padding: 1.5em;
+    background-color: #f7f7f7;
+    animation: trans-left .5s ease-out;
+}
+@keyframes trans-left {
+    0% {
+        transform: translate(-50%);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0);
+        opacity: 100%;
+    }
+}
+.about-wrapper .about .text-box>* {
+    margin-bottom: .5em;
+}
+.about-wrapper .about .text-box h2 {
+    font-size: 1.5rem;
+    color: var(--gray);
+    margin-top: 1em;
+}
+.about-wrapper .about .text-box p:nth-child(2) {
+    font-size: var(--heading1);
+    font-weight: 600; 
+}
+.about-wrapper .about .text-box p:nth-child(3) {
+    color: var(--gray);
+}
+.about-wrapper .about .image-box {
+    animation: trans-right .5s ease-out;
+}
+@keyframes trans-right {
+    0% {
+        transform: translate(50%);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0);
+        opacity: 100%;
+    }
+}
+.about-wrapper .about .image-box img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*  utility class */
+
+.container {
+    width: 80%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+@media (max-width:768px) {
+    .about-wrapper .about {
+        /* border: 5px solid red; */
+        /* box-shadow: 0 0 10px #e9e9e9; */
+        flex-direction: column;
+    }
+    .about-wrapper .about .box {
+        width: 100%;
+    }
+    .about-wrapper .about .image-box {
+        height: 200px
+    }
+    .about-wrapper .about .text-box {
+        height: auto;
+        order: 2;
+    }
+}
