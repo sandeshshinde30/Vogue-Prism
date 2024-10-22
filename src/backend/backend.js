@@ -15,7 +15,7 @@ mongoose.connect('mongodb://localhost:27017/vogue_prism_db', {
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-// Define Product Schema and Model
+// Product Schema and Model
 const ProductSchema = new mongoose.Schema({
     title: String,
     description: String,
@@ -26,10 +26,83 @@ const ProductSchema = new mongoose.Schema({
     colors: [String],
     images: [String]
 });
-
 const Product = mongoose.model('Product', ProductSchema);
 
-// Route to Add a New Product
+// Offer Schema and Model
+const OfferSchema = new mongoose.Schema({
+    imageUrl: String,
+    description: String, // Optional field for offer description
+    createdAt: { type: Date, default: Date.now }
+});
+const Offer = mongoose.model('Offer', OfferSchema);
+
+// Route to Add a New Offer Image
+app.post('/api/offers', async (req, res) => {
+    const { imageUrl, description } = req.body;
+
+    try {
+        const newOffer = new Offer({ imageUrl, description });
+        await newOffer.save();
+        res.status(201).json({ message: 'Offer added successfully!', offer: newOffer });
+    } catch (error) {
+        console.error('Error adding offer:', error);
+        res.status(500).json({ error: 'Failed to add offer.' });
+    }
+});
+
+// Route to Retrieve All Offers
+app.get('/api/offers', async (req, res) => {
+    try {
+        const offers = await Offer.find().sort({ createdAt: -1 }); // Get offers sorted by creation date
+        res.status(200).json(offers);
+    } catch (error) {
+        console.error('Error retrieving offers:', error);
+        res.status(500).json({ error: 'Failed to retrieve offers.' });
+    }
+});
+
+// Route to Delete an Offer by ID
+app.delete('/api/offers/:id', async (req, res) => {
+    const offerId = req.params.id;
+
+    try {
+        const result = await Offer.findByIdAndDelete(offerId);
+
+        if (!result) {
+            return res.status(404).json({ error: 'Offer not found' });
+        }
+
+        res.status(200).json({ message: 'Offer deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting offer:', error);
+        res.status(500).json({ error: 'Failed to delete offer.' });
+    }
+});
+
+// Route to Update an Offer by ID
+app.put('/api/offers/:id', async (req, res) => {
+    const offerId = req.params.id;
+    const { imageUrl, description } = req.body;
+
+    try {
+        const updatedOffer = await Offer.findByIdAndUpdate(
+            offerId,
+            { imageUrl, description },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedOffer) {
+            return res.status(404).json({ error: 'Offer not found' });
+        }
+
+        res.status(200).json({ message: 'Offer updated successfully!', offer: updatedOffer });
+    } catch (error) {
+        console.error('Error updating offer:', error);
+        res.status(500).json({ error: 'Failed to update offer.' });
+    }
+});
+
+// Product Routes
 app.post('/api/products', async (req, res) => {
     try {
         const newProduct = new Product(req.body);
@@ -40,29 +113,18 @@ app.post('/api/products', async (req, res) => {
     }
 });
 
-// Route to Get Products by Category or Name
 app.get('/api/getProducts', async (req, res) => {
-    const { category, name } = req.query; // Get category and name from query parameters
+    const { category, name } = req.query;
 
     try {
         const query = {};
-        
-        // Filter by category if provided
-        if (category) {
-            query.category = category;
-        }
-        
-        // Filter by name (case insensitive) if provided
-        if (name) {
-            query.title = { $regex: name, $options: 'i' };
-        }
+        if (category) query.category = category;
+        if (name) query.title = { $regex: name, $options: 'i' };
 
         const products = await Product.find(query);
-        
-        // Map products to include only the first image
         const result = products.map(product => ({
-            ...product._doc, // Spread the existing product data
-            img: product.images[0] // Include only the first image
+            ...product._doc,
+            img: product.images[0]
         }));
 
         res.status(200).json(result);
@@ -72,26 +134,24 @@ app.get('/api/getProducts', async (req, res) => {
     }
 });
 
-// Delete a product by ID
 app.delete('/api/deleteProduct/:id', async (req, res) => {
     const productId = req.params.id;
     try {
-        const result = await Product.findByIdAndDelete(productId); // Use the correct Product model
+        const result = await Product.findByIdAndDelete(productId);
 
         if (!result) {
-            return res.status(404).send({ error: "Product not found" });
+            return res.status(404).send({ error: 'Product not found' });
         }
 
-        res.status(200).send({ message: "Product deleted successfully" });
+        res.status(200).send({ message: 'Product deleted successfully' });
     } catch (error) {
         console.error('Error deleting product:', error);
-        res.status(500).send({ error: "Failed to delete product" });
+        res.status(500).send({ error: 'Failed to delete product' });
     }
 });
 
 app.put('/api/updateProducts/:id', async (req, res) => {
     const productId = req.params.id;
-    console.log('Received request to update product with ID:', productId);
 
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
@@ -101,18 +161,15 @@ app.put('/api/updateProducts/:id', async (req, res) => {
         );
 
         if (!updatedProduct) {
-            console.log('Product not found:', productId);
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        console.log('Product updated successfully:', updatedProduct);
         res.status(200).json({ message: 'Product updated successfully!', product: updatedProduct });
     } catch (error) {
         console.error('Error updating product:', error);
         res.status(500).json({ error: 'Failed to update product.', details: error.message });
     }
 });
-
 
 // Start the server
 app.listen(3001, () => {

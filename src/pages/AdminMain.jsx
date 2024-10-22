@@ -9,6 +9,7 @@ import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
 import DeleteProduct from "../components/DeleteProduct";
 import UpdateSearchProduct from "../components/UpdateSearchProduct";
+import Offers from "../components/Offers";
 
 export default function AdminMain() {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -60,7 +61,7 @@ export default function AdminMain() {
       case "Dashboard":
         return <div className="p-10">Welcome to the Dashboard</div>;
       case "Offers":
-        return <div className="p-10">Manage special offers and discounts.</div>;
+        return <Offers/>;
       case "Edit Profile":
         return <div className="p-10">Edit your profile details here.</div>;
       default:
@@ -113,7 +114,7 @@ export default function AdminMain() {
             )}
           </div>
 
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <div className="flex gap-3 items-center cursor-pointer" onClick={handleTrendingClick}>
               <IoMdTrendingUp size={20} className="text-dark-green" />
               <h1 className="whitespace-nowrap">Trending</h1>
@@ -134,7 +135,7 @@ export default function AdminMain() {
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
 
           <div className="flex gap-3 items-center cursor-pointer" onClick={() => setActiveTab("Offers")}>
             <BiSolidOffer size={20} className="text-dark-green" />
