@@ -21,6 +21,7 @@ const ProductSchema = new mongoose.Schema({
     description: String,
     mrp: Number,
     price: Number,
+    category: String,
     sizes: [String],
     colors: [String],
     images: [String]
@@ -38,6 +39,58 @@ app.post('/api/products', async (req, res) => {
         res.status(500).json({ error: 'Failed to add product.' });
     }
 });
+
+// Route to Get Products by Category or Name
+
+app.get('/api/getProducts', async (req, res) => {
+    const { category, name } = req.query; // Get category and name from query parameters
+
+    try {
+        const query = {};
+        
+        // Filter by category if provided
+        if (category) {
+            query.category = category;
+        }
+        
+        // Filter by name (case insensitive) if provided
+        if (name) {
+            query.title = { $regex: name, $options: 'i' };
+        }
+
+        const products = await Product.find(query);
+        
+        // Map products to include only the first image
+        const result = products.map(product => ({
+            ...product._doc, // Spread the existing product data
+            img: product.images[0] // Include only the first image
+        }));
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error retrieving products:', error);
+        res.status(500).json({ error: 'Failed to retrieve products.' });
+    }
+});
+
+// Delete a product by ID
+app.delete('/api/deleteProduct/:id', async (req, res) => {
+    const productId = req.params.id;
+    try {
+        const result = await Product.findByIdAndDelete(productId); // Use the correct Product model
+
+        if (!result) {
+            return res.status(404).send({ error: "Product not found" });
+        }
+
+        res.status(200).send({ message: "Product deleted successfully" });
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).send({ error: "Failed to delete product" });
+    }
+});
+
+
 
 // Start the server
 app.listen(3001, () => {

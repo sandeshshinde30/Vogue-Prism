@@ -15,13 +15,19 @@ export default function AddProduct() {
     const [selectedColor, setSelectedColor] = useState("#ffffff");
     const [showPicker, setShowPicker] = useState(false);
     const [loading, setLoading] = useState(false); // New state for loading
+    const [selectedCategory, setSelectedCategory] = useState("");
 
+    const categories = ["Clothing", "Footwear", "Accessories", "Jewelry"];
 
     const handleAddSize = () => {
         if (selectedSize && !sizes.includes(selectedSize)) {
             setAddedSizes((prevSizes) => [...prevSizes, selectedSize]);
             setSelectedSize("");
         }
+    };
+
+    const handleCategoryChange = (event) => {
+        setSelectedCategory(event.target.value);
     };
 
     const handleAddColor = () => {
@@ -79,7 +85,7 @@ export default function AddProduct() {
 
     const handleSubmit = async () => {
         const uploadedImages = await handleUploadImages();
-
+    
         const productData = {
             title,
             description,
@@ -87,11 +93,12 @@ export default function AddProduct() {
             price: parseFloat(price),
             sizes,
             colors,
+            category: selectedCategory, // Add selected category here
             images: uploadedImages
         };
-
+    
         console.log('Product Data:', productData);
-
+    
         try {
             const response = await fetch('http://localhost:3001/api/products', {
                 method: 'POST',
@@ -100,7 +107,7 @@ export default function AddProduct() {
                 },
                 body: JSON.stringify(productData)
             });
-
+    
             if (response.ok) {
                 alert('Product added successfully!');
                 setTitle("");
@@ -110,6 +117,7 @@ export default function AddProduct() {
                 setAddedSizes([]);
                 setAddedColors([]);
                 setImages([]);
+                setSelectedCategory(""); // Reset selected category after submission
             } else {
                 alert('Failed to add product.');
             }
@@ -260,7 +268,26 @@ export default function AddProduct() {
 
                 {/* Pictures Section */}
                 <div className="flex flex-col px-5 mt-2 w-1/2">
-                    <h1 className="font-semibold">Pictures</h1>
+               
+                <div className="mt-4">
+                    <label htmlFor="category" className=" mb-2  font-bold">Select Category</label>
+                    <select 
+                        id="category"
+                        value={selectedCategory}
+                        onChange={handleCategoryChange}
+                        className="w-full border rounded p-2 bg-dark-green text-white"
+                    >
+                        <option value="" disabled>Select a category</option>
+                        {categories.map((category, index) => (
+                            <option key={index} value={category}>
+                                {category}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            
+
+                    <h1 className="font-semibold mt-3">Pictures</h1>
                     <div className="bg-white mt-3 rounded-lg">
                         <div className="grid grid-cols-3 gap-3 p-5">
                             {/* Displaying uploaded images */}
