@@ -36,7 +36,7 @@ export default function UpdateProductPage() {
     // Fetch products based on selected category and search term
     const fetchProducts = async () => {
         setLoading(true);
-        const url = `http://13.127.31.26:4000/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
+        const url = `https://vogue-backend-1.onrender.com/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
         console.log("Fetching from URL:", url);
         try {
             const response = await fetch(url);
@@ -252,7 +252,7 @@ function UpdateProduct({ product, onBack }) {
         }
     
         try {
-            const response = await fetch(`http://13.127.31.26:4000/api/updateProducts/${product._id}`, {
+            const response = await fetch(`https://vogue-backend-1.onrender.com/api/updateProducts/${product._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
