@@ -100,7 +100,7 @@ export default function AddProduct() {
         console.log('Product Data:', productData);
     
         try {
-            const response = await fetch('http://13.127.31.26:4000/api/products', {
+            const response = await fetch('https://vogue-backend-1.onrender.com/api/products', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
