@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaYoutube, FaInstagram, FaUser, FaBars, FaTimes } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom'; // Renamed to RouterLink
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 function Navbar() {
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -10,6 +11,11 @@ function Navbar() {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
+    const handleNavigation = (path) => {
+        navigate(path);
+        setIsMobileMenuOpen(false);  // Close the mobile menu after navigation
+    };
+    
     return (
         <>
             {/* Mobile Menu Button */}
@@ -33,10 +39,24 @@ function Navbar() {
                         <FaInstagram className="icon-outline" size={24} />
                     </div>
                     <div className='flex space-x-4 text-md font-bold gap-5'>
-                        <a className='hover:text-green-700 cursor-pointer'>HOME</a>
-                        <a className='hover:text-green-700 cursor-pointer'>CATEGORIES</a>
-                        <a className='hover:text-green-700 cursor-pointer'>PRODUCTS</a>
-                        <a className='hover:text-green-700 cursor-pointer'>REVIEWS</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/')}>HOME</a>
+                        <ScrollLink 
+                to="cat" 
+                smooth={true} 
+                duration={500} 
+                className='hover:text-green-700 cursor-pointer'
+            >
+                CATEGORIES
+            </ScrollLink>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/category')}>PRODUCTS</a>
+                        <ScrollLink 
+                to="rew" 
+                smooth={true} 
+                duration={500} 
+                className='hover:text-green-700 cursor-pointer'
+            >
+                REVIEWS
+            </ScrollLink>
                     </div>
                     
                    
@@ -67,12 +87,13 @@ function Navbar() {
 
                     {/* Mobile Navigation Links */}
                     <div className='flex flex-col justify-center items-center w-full mt-5 tracking-wide'>
-                        <div className='flex flex-col space-x-4 text-lg font-bold gap-7'>
-                            <a className='hover:text-green-700 cursor-pointer'>HOME</a>
-                            <a className='hover:text-green-700 cursor-pointer'>CATEGORIES</a>
-                            <a className='hover:text-green-700 cursor-pointer'>PRODUCTS</a>
-                            <a className='hover:text-green-700 cursor-pointer'>REVIEWS</a>
-                        </div>
+                    <div className='flex flex-col space-x-4 text-lg font-bold gap-7'>
+    <a className='hover:text-green-700 cursor-pointer' onClick={home}>HOME</a>
+    <a className='hover:text-green-700 cursor-pointer' onClick={cat}>CATEGORIES</a>
+    <a className='hover:text-green-700 cursor-pointer'>PRODUCTS</a>
+    <a className='hover:text-green-700 cursor-pointer'>REVIEWS</a>
+</div>
+
                         <div className='flex space-x-6 mt-10'>
                             <FaFacebook className="icon-outline" size={24} />
                             <FaTwitter className="icon-outline" size={24} />

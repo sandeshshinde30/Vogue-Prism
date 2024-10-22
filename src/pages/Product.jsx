@@ -51,9 +51,9 @@ export default function Product() {
                         </div>
                         <p className="text-xs">(incl. of all taxes)</p>
                         <h3 className="text-[20px] font-bold text-gray-800">COLOR</h3>
-                        <div className="flex gap-3 justify-center md:justify-start">
+                        <div className="flex gap-3 justify-center md:justify-start ">
                             {product.colors.map((color, index) => (
-                                <div key={index} className={`bg-${color} rounded-full w-6 h-6`}></div>
+                                <div key={index} className={`bg-${color} rounded-full w-6 h-6 border-x-2 border-black`}></div>
                             ))}
                         </div>
                         <h3 className="text-[20px] font-bold text-gray-800">SIZE</h3>

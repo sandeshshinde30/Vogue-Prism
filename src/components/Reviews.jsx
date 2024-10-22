@@ -30,7 +30,7 @@ export default function Reviews() {
 
   return (
     <>
-      <div className="mt-20 mb-20">
+      <div id="rew" className="mt-20 mb-20">
         <div className="text-center">
           <h1 className="lg:text-4xl text-2xl font-bold text-dark-green tracking-[.25em]">
             REVIEWS

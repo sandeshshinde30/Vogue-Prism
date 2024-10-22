@@ -91,7 +91,7 @@ export default function Category() {
                 </header>
 
                 <div className="flex-col">
-                    <div className="flex flex-wrap justify-center md:justify-start w-4/5">
+                    <div className="flex flex-wrap justify-center md:justify-center w-full">
                         {loading ? ( // Show loading indicator while fetching
                             <p>Loading...</p>
                         ) : products.length > 0 ? ( // Check if there are products

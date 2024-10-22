@@ -15,7 +15,7 @@ export default function Categories() {
 
   return (
     <>
-      <div className="md:mt-20 mt-28">
+      <div id="cat" className="md:mt-20 mt-28">
         <div className="text-center">
           <h1 className="lg:text-4xl text-2xl font-bold text-dark-green tracking-[.25em]">
             CATEGORY</h1>
