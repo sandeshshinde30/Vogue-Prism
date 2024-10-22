@@ -8,7 +8,7 @@ import AdminMain from './pages/AdminMain';
 import AdminLogin from './pages/AdminLogin';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
-
+import Category from './pages/Category'
 
 
 class App extends Component {
@@ -23,10 +23,8 @@ class App extends Component {
         <Route path='/login' element={<AdminLogin/>}/>
         <Route path='/contactus' element={<ContactUs/>}/>
         <Route path='/aboutus' element={<AboutUs/>}/>
-
-
-
-        
+        <Route path='/category' element={<Category/>}/>
+      
 
       </Routes>
      </Router>
