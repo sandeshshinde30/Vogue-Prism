@@ -7,7 +7,7 @@ export default function HomeOffer() {
     useEffect(() => {
         const fetchOfferImage = async () => {
             try {
-                const response = await fetch("http://localhost:3001/api/offers");
+                const response = await fetch("http://13.127.31.26:4000/api/offers");
                 if (response.ok) {
                     const data = await response.json();
                     if (data.length > 0) {

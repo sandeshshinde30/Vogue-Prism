@@ -16,7 +16,7 @@ export default function Offers() {
     useEffect(() => {
         const fetchOffers = async () => {
             try {
-                const response = await fetch("http://localhost:3001/api/offers");
+                const response = await fetch("http://13.127.31.26:4000/api/offers");
                 if (response.ok) {
                     const data = await response.json();
                     setOffers(data);
@@ -43,7 +43,7 @@ export default function Offers() {
         if (!window.confirm("Are you sure you want to delete this offer?")) return;
 
         try {
-            const response = await fetch(`http://localhost:3001/api/offers/${offerId}`, {
+            const response = await fetch(`http://13.127.31.26:4000/api/offers/${offerId}`, {
                 method: "DELETE",
             });
 
@@ -95,7 +95,7 @@ export default function Offers() {
 
     const storeOfferInDB = async (imageUrl) => {
         try {
-            const response = await fetch("http://localhost:3001/api/offers", {
+            const response = await fetch("http://13.127.31.26:4000/api/offers", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ imageUrl }),

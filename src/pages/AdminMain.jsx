@@ -10,6 +10,7 @@ import UpdateProduct from "../components/UpdateProduct";
 import DeleteProduct from "../components/DeleteProduct";
 import UpdateSearchProduct from "../components/UpdateSearchProduct";
 import Offers from "../components/Offers";
+import Dashboard from "../components/Dashboard";
 
 export default function AdminMain() {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -59,7 +60,7 @@ export default function AdminMain() {
 
     switch (activeTab) {
       case "Dashboard":
-        return <div className="p-10">Welcome to the Dashboard</div>;
+        return <Dashboard/>;
       case "Offers":
         return <Offers/>;
       case "Edit Profile":
