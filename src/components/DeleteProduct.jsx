@@ -22,7 +22,7 @@ export default function DeleteProduct() {
     // Fetch products based on selected category and search term
     const fetchProducts = async () => {
         setLoading(true);
-        const url = `http://13.127.31.26:4000/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
+        const url = `https://vogue-backend-1.onrender.com/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
         console.log("Fetching from URL:", url); // Log the URL
         try {
             const response = await fetch(url);
@@ -58,7 +58,7 @@ const handleDelete = async (productId) => {
     if (confirmed) {
         try {
             console.log("Deleting product with ID:", productId); // Log the product ID
-            const response = await fetch(`http://13.127.31.26:4000/api/deleteProduct/${productId}`, {
+            const response = await fetch(`https://vogue-backend-1.onrender.com/api/deleteProduct/${productId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
