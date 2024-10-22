@@ -8,6 +8,7 @@ import { FaUserEdit } from "react-icons/fa";
 import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
 import DeleteProduct from "../components/DeleteProduct";
+import UpdateSearchProduct from "../components/UpdateSearchProduct";
 
 export default function AdminMain() {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -34,7 +35,7 @@ export default function AdminMain() {
         case "Add":
           return <AddProduct />;
         case "Update":
-          return <UpdateProduct />;
+          return <UpdateSearchProduct />;
         case "Delete":
           return <DeleteProduct />;
         default:

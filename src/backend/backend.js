@@ -41,7 +41,6 @@ app.post('/api/products', async (req, res) => {
 });
 
 // Route to Get Products by Category or Name
-
 app.get('/api/getProducts', async (req, res) => {
     const { category, name } = req.query; // Get category and name from query parameters
 
@@ -90,6 +89,29 @@ app.delete('/api/deleteProduct/:id', async (req, res) => {
     }
 });
 
+app.put('/api/updateProducts/:id', async (req, res) => {
+    const productId = req.params.id;
+    console.log('Received request to update product with ID:', productId);
+
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(
+            productId,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedProduct) {
+            console.log('Product not found:', productId);
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        console.log('Product updated successfully:', updatedProduct);
+        res.status(200).json({ message: 'Product updated successfully!', product: updatedProduct });
+    } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).json({ error: 'Failed to update product.', details: error.message });
+    }
+});
 
 
 // Start the server
