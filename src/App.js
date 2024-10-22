@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Product from './pages/Product';
 import Products from './pages/Products';
 import AdminMain from './pages/AdminMain';
+import AdminLogin from './pages/AdminLogin';
 
 
 
@@ -17,6 +18,8 @@ class App extends Component {
         <Route path='/' element={<Home/>}/>
         <Route path='/product' element={<Product/>}/>
         <Route path='/admin' element={<AdminMain/>}/>
+        <Route path='/login' element={<AdminLogin/>}/>
+
         
 
       </Routes>

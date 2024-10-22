@@ -80,68 +80,64 @@ export default function UpdateProductPage() {
                         <h1 className="uppercase font-bold">Update collection</h1>
                     </div>
 
-                    <form onSubmit={handleSearchSubmit} className="flex h-auto mt-2 px-10 py-5 gap-10">
-                        {/* Dropdown Button */}
-                        <button
-                            id="dropdownDefaultButton"
-                            onClick={toggleDropdown}
-                            className="text-white bg-dark-green hover:bg-darker-green focus:ring-4 focus:outline-none focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center"
-                            type="button"
-                        >
-                            {selectedCategory || "Select Category"}
-                            <svg
-                                className="w-3 h-3 ml-2"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="m1 1 4 4 4-4"
-                                />
-                            </svg>
-                        </button>
+                    <div className="flex h-auto mt-2 px-10 py-5 gap-10">
+                {/* Dropdown Button */}
+                <button
+                    id="dropdownDefaultButton"
+                    onClick={toggleDropdown}
+                    className="text-white bg-dark-green hover:bg-darker-green focus:ring-4 focus:outline-none focus:ring-green-400 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex items-center"
+                    type="button"
+                >
+                    {selectedCategory || "Select Category"}
+                    <svg
+                        className="w-3 h-3 ml-2"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                    >
+                        <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="m1 1 4 4 4-4"
+                        />
+                    </svg>
+                </button>
 
-                        {/* Dropdown Menu */}
-                        {isDropdownOpen && (
-                            <div
-                                id="dropdown"
-                                className="z-10 bg-dark-green divide-y divide-gray-600 rounded-lg shadow w-44 absolute mt-12"
-                            >
-                                <ul className="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
-                                    {category.map((cat) => (
-                                        <li key={cat}>
-                                            <button
-                                                className="block w-full text-left px-4 py-2 hover:bg-green-600"
-                                                onClick={() => handleCategorySelect(cat)}
-                                            >
-                                                {cat}
-                                            </button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                    <div
+                        id="dropdown"
+                        className="z-10 bg-dark-green divide-y divide-gray-600 rounded-lg shadow w-44 absolute mt-12"
+                    >
+                        <ul className="py-2 text-sm text-white" aria-labelledby="dropdownDefaultButton">
+                            {category.map((cat) => (
+                                <li key={cat}>
+                                    <button
+                                        className="block w-full text-left px-4 py-2 hover:bg-green-600"
+                                        onClick={() => handleCategorySelect(cat)}
+                                    >
+                                        {cat}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
 
-                        {/* Search Bar */}
-                        <div className="flex items-center w-64 bg-dark-green rounded-lg px-3">
-                            <FaSearch size={20} className="text-white" />
-                            <input
-                                type="text"
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                                className="w-full bg-transparent text-white placeholder-white outline-none ml-2 h-10"
-                                placeholder="Search Name"
-                            />
-                        </div>
-
-                        <div className="bg-dark-green text-white p-2 rounded-2xl">
-                            <button type="submit">Search</button>
-                        </div>
-                    </form>
+                {/* Search Bar */}
+                <div className="flex items-center w-64 bg-dark-green rounded-lg px-3">
+                    <FaSearch size={20} className="text-white" />
+                    <input
+                        type="text"
+                        className="w-full bg-transparent text-white placeholder-white outline-none ml-2 h-10"
+                        placeholder="Search Name"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+                    />
+                </div>
+            </div>
 
                     {/* Loading Spinner */}
                     {loading && <div className="text-center text-white">Loading...</div>}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaYoutube, FaInstagram, FaUser, FaBars, FaTimes } from 'react-icons/fa';
-
+import { useNavigate } from 'react-router-dom';
 function Navbar() {
+    const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
@@ -36,9 +38,16 @@ function Navbar() {
                         <a className='hover:text-green-700 cursor-pointer'>PRODUCTS</a>
                         <a className='hover:text-green-700 cursor-pointer'>REVIEWS</a>
                     </div>
-                    <div className='flex lg:mr-20'>
-                        <FaUser size={24} />
-                    </div>
+                    
+                   
+                    <Link to="/login">
+            <div className='flex lg:mr-20 text-center justify-center items-center gap-2'>
+                <FaUser size={24} />
+                <h2 className=' font-bold'>Admin</h2>
+            </div>
+        </Link>
+
+                    
                 </div>
             </div>
 
