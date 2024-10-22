@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { SketchPicker } from "react-color";
 
 export default function AddProduct() {
     const [images, setImages] = useState([]);
-    const [hoveredIndex, setHoveredIndex] = useState(null); // Track which image is being hovered
-
+    const [hoveredIndex, setHoveredIndex] = useState(null);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [mrp, setMrp] = useState("");
@@ -16,18 +14,20 @@ export default function AddProduct() {
     const [colors, setAddedColors] = useState([]);
     const [selectedColor, setSelectedColor] = useState("#ffffff");
     const [showPicker, setShowPicker] = useState(false);
+    const [loading, setLoading] = useState(false); // New state for loading
+
 
     const handleAddSize = () => {
         if (selectedSize && !sizes.includes(selectedSize)) {
             setAddedSizes((prevSizes) => [...prevSizes, selectedSize]);
-            setSelectedSize(""); // Clear the dropdown after adding
+            setSelectedSize("");
         }
     };
-    
+
     const handleAddColor = () => {
         if (selectedColor && !colors.includes(selectedColor)) {
             setAddedColors((prevColors) => [...prevColors, selectedColor]);
-            setSelectedColor("#ffffff"); // Reset to default color after adding
+            setSelectedColor("#ffffff");
         }
     };
 
@@ -42,7 +42,44 @@ export default function AddProduct() {
         setImages((prevImages) => prevImages.filter((_, i) => i !== index));
     };
 
+    const handleUploadImages = async () => {
+        const uploadedImageUrls = [];
+        setLoading(true);
+
+        for (const imgSrc of images) {
+            // Convert the object URL back to a File
+            const response = await fetch(imgSrc);
+            const blob = await response.blob();
+            const file = new File([blob], "image.png", { type: 'image/png' });
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'vogue_prism');
+
+            try {
+                const uploadResponse = await fetch("https://api.cloudinary.com/v1_1/dldrjl92a/image/upload", {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (uploadResponse.ok) {
+                    const data = await uploadResponse.json();
+                    uploadedImageUrls.push(data.secure_url);
+                } else {
+                    console.error('Upload failed:', uploadResponse.statusText);
+                }
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+
+        setLoading(false);
+        return uploadedImageUrls;
+    };
+
     const handleSubmit = async () => {
+        const uploadedImages = await handleUploadImages();
+
         const productData = {
             title,
             description,
@@ -50,8 +87,10 @@ export default function AddProduct() {
             price: parseFloat(price),
             sizes,
             colors,
-            images
+            images: uploadedImages
         };
+
+        console.log('Product Data:', productData);
 
         try {
             const response = await fetch('http://localhost:3001/api/products', {
@@ -64,8 +103,6 @@ export default function AddProduct() {
 
             if (response.ok) {
                 alert('Product added successfully!');
-                console.log({ title, description, mrp, price, colors });
-                // Clear form after successful submission
                 setTitle("");
                 setDescription("");
                 setMrp("");
@@ -81,12 +118,16 @@ export default function AddProduct() {
             alert('Error adding product.');
         }
     };
+    
+    
 
     return (
         <div className="h-full w-full max-h-[calc(100vh-100px)] overflow-y-auto">
             <div className="w-full text-center text-[18px] text-gray-700">
                 <h1 className="uppercase font-bold">Add New Collection</h1>
             </div>
+
+            
 
             <div className="flex h-auto">
                 {/* Container with max height and overflow for scrolling */}
@@ -230,12 +271,12 @@ export default function AddProduct() {
                                     onMouseEnter={() => setHoveredIndex(index)} // Set hovered index on mouse enter
                                     onMouseLeave={() => setHoveredIndex(null)} // Clear hovered index on mouse leave
                                 >
-                                    <img src={imgSrc} alt={`Uploaded Preview ${index}`} className="w-full h-24 object-cover rounded-md" />
+                                    <img src={imgSrc} alt={`Uploaded Preview ${index}`} className="w-full h-24 object-contain rounded-md" />
                                     {/* Delete button shown on hover */}
                                     {hoveredIndex === index && (
                                         <button
                                             onClick={() => handleDeleteImage(index)}
-                                            className="absolute top-1 right-1 text-red-500"
+                                            className="absolute top-1 right-1 text-red-500 bg-red-200 w-12"
                                         >
                                             X
                                         </button>
@@ -243,7 +284,7 @@ export default function AddProduct() {
                                 </div>
                             ))}
                             {/* File Input for uploading new images */}
-                            <label className="flex flex-col items-center justify-center w-full h-24 bg-darker-green border-2 border-dashed border-light-gray rounded-md cursor-pointer">
+                            <label className="flex flex-col items-center justify-center w-full h-24 bg-darker-green border-2 border-solid border-light-gray rounded-md cursor-pointer">
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -252,20 +293,24 @@ export default function AddProduct() {
                                     onChange={handleImageChange}
                                 />
                                 <BiSolidImageAdd className="text-4xl text-white" />
-                                <span className="text-white">Upload Images</span>
+                                <span className="text-white">Select Images</span>
                             </label>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            {/* Submit Button */}
+                    </div>
+                    {/* Submit Button */}
             <button
                 onClick={handleSubmit}
                 className="mt-4 mb-2 w-full h-12 bg-dark-green text-white font-semibold rounded-lg hover:bg-darker-green transition-colors"
             >
                 ADD PRODUCT
             </button>
+                </div>
+            </div>
+
+            
+           
+
         </div>
     );
 }
