@@ -17,7 +17,17 @@ export default function AddProduct() {
     const [loading, setLoading] = useState(false); // New state for loading
     const [selectedCategory, setSelectedCategory] = useState("");
 
-    const categories = ["Clothing", "Footwear", "Accessories", "Jewelry"];
+    const categories = [
+        "Shirt",
+        "T-Shirt",
+        "Jeans",
+        "Shorts",
+        "Jackets",
+        "Formals",
+        "Kurtas",
+        "Sports Wear",
+        "Innerwear"
+    ];
 
     const handleAddSize = () => {
         if (selectedSize && !sizes.includes(selectedSize)) {
