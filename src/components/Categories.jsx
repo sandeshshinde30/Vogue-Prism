@@ -2,15 +2,15 @@ import React from "react";
 
 export default function Categories() {
     let categories = [
-        { img: "4568144.webp", title: "Shirt" },
-        { img: "4568147.webp", title: "Pants" },
-        { img: "4568146.webp", title: "Jacket" },
-        { img: "4568144.webp", title: "Shoes" },
-        { img: "4568147.webp", title: "Hat" },
-        { img: "4568146.webp", title: "Bags" },
-        { img: "4568144.webp", title: "Accessories" },
-        { img: "4568147.webp", title: "Watch" },
-        { img: "4568147.webp", title: "Glasses" }
+        { img: "shirt.jpeg", title: "Shirt" },
+        { img: "pant.jpeg", title: "Pants" },
+        { img: "jack.jpeg", title: "Jacket" },
+        { img: "shie.jpeg", title: "Shoes" },
+        { img: "hat.jpeg", title: "Hat" },
+        { img: "bags.jpeg", title: "Bags" },
+        { img: "belt.jpeg", title: "Accessories" },
+        { img: "watch.jpeg", title: "Watch" },
+        { img: "eye.jpeg", title: "Glasses" }
       ];
 
   return (
@@ -33,7 +33,7 @@ export default function Categories() {
               <img
                 src={category.img}
                 alt={category.title}
-                className="object-cover w-full h-full"
+                className="object-cover h-full"
               />
             </div>
 

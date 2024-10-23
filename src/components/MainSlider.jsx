@@ -8,8 +8,8 @@
 
         let slides = [
             "cloth1.png",
-            "4568147.webp",
-            "4568146.webp"
+            "cloth2.png",
+            "cloth3.png",
         ]
 
         const handleShopNow = () => {

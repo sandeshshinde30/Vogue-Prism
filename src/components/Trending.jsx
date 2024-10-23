@@ -3,11 +3,11 @@
     export default function Trending() {
 
         const trending = [
-            { img: "4568144.webp", title: "Shirt" , price : 999},
-            { img: "4568144.webp", title: "Shirt" , price : 999},
-            { img: "4568144.webp", title: "Shirt" , price : 999},
-            { img: "4568144.webp", title: "Shirt" , price : 999},
-            { img: "4568144.webp", title: "Shirt" , price : 999},
+            { img: "1.jpeg", title: "T-Shirt" , price : 699},
+            { img: "2.jpeg", title: "T-Shirt" , price : 799},
+            { img: "3.jpeg", title: "Shirt" , price : 899},
+            { img: "4.jpeg", title: "Pant" , price : 999},
+            { img: "5.jpeg", title: "Jeans" , price : 1299},
 
         ]
         return (

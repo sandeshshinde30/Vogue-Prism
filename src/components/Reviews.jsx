@@ -43,7 +43,7 @@ export default function Reviews() {
             <div
               key={review.id}
               className={`relative flex flex-col lg:w-2/6  h-86 rounded-xl items-center ${
-                index === 1 ? "bg-darker-green" : "bg-gray-300"
+                index === 1 ? "bg-dark-green" : "bg-gray-300"
               }`}
             >
               <div className="absolute -top-16">
