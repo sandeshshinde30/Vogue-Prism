@@ -16,7 +16,7 @@ function Home() {
     useEffect(() => {
         const fetchOfferStatus = async () => {
             try {
-                const response = await fetch("http://localhost:3001/api/offers");
+                const response = await fetch("https://vogue-backend-1.onrender.com/api/offers");
                 if (response.ok) {
                     const data = await response.json();
                     setOfferExists(data.length > 0); // If offers exist, set state to true
