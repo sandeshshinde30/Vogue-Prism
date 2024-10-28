@@ -24,6 +24,7 @@ class App extends Component {
         <Route path='/contactus' element={<ContactUs/>}/>
         <Route path='/aboutus' element={<AboutUs/>}/>
         <Route path='/category' element={<Category/>}/>
+        
       
 
       </Routes>

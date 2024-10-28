@@ -24,9 +24,16 @@ const ProductSchema = new mongoose.Schema({
     category: String,
     sizes: [String],
     colors: [String],
-    images: [String]
+    images: [String],
+    date: String, // Store the date
+    time: String, // Store the time
+    createdAt: { type: Date, default: Date.now }, // System date and time
+    updatedAt: { type: Date, default: Date.now }  // Tracks updates
 });
+
 const Product = mongoose.model('Product', ProductSchema);
+
+
 
 // Offer Schema and Model
 const OfferSchema = new mongoose.Schema({
@@ -188,6 +195,34 @@ app.get('/api/getProduct/:id', async (req, res) => {
         res.status(500).json({ error: 'Failed to retrieve product.' });
     }
 });
+
+app.get('/api/getRecentProducts', async (req, res) => {
+    try {
+        // Calculate the date 3 days ago from now
+        const threeDaysAgo = new Date();
+        threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+
+        // Build the query object to filter products created within the last 3 days
+        const query = { createdAt: { $gte: threeDaysAgo } };
+
+        // Fetch the matching products with a limit of 6
+        const products = await Product.find(query).sort({ createdAt: -1 }).limit(6);
+
+        // Format the response to include the first image
+        const result = products.map(product => ({
+            ...product._doc,
+            img: product.images[0]  // Include only the first image
+        }));
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error retrieving recent products:', error);
+        res.status(500).json({ error: 'Failed to retrieve recent products.' });
+    }
+});
+
+
+
 
 
 // Start the server

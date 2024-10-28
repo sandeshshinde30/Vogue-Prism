@@ -16,6 +16,9 @@ export default function AddProduct() {
     const [showPicker, setShowPicker] = useState(false);
     const [loading, setLoading] = useState(false); // New state for loading
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [date, setDate] = useState(new Date().toISOString().slice(0, 10)); // Default to today's date
+const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour12: false }));
+
 
     const categories = [
         "Shirt",
@@ -61,26 +64,27 @@ export default function AddProduct() {
     const handleUploadImages = async () => {
         const uploadedImageUrls = [];
         setLoading(true);
-
+    
         for (const imgSrc of images) {
-            // Convert the object URL back to a File
+            // Convert object URL back to a File
             const response = await fetch(imgSrc);
             const blob = await response.blob();
             const file = new File([blob], "image.png", { type: 'image/png' });
-
+    
             const formData = new FormData();
             formData.append('file', file);
             formData.append('upload_preset', 'vogue_prism');
-
+            formData.append('effect', 'background_removal'); // Add the effect for bg removal
+    
             try {
                 const uploadResponse = await fetch("https://api.cloudinary.com/v1_1/dldrjl92a/image/upload", {
                     method: 'POST',
                     body: formData
                 });
-
+    
                 if (uploadResponse.ok) {
                     const data = await uploadResponse.json();
-                    uploadedImageUrls.push(data.secure_url);
+                    uploadedImageUrls.push(data.secure_url); // Store the URL of the image with bg removed
                 } else {
                     console.error('Upload failed:', uploadResponse.statusText);
                 }
@@ -88,11 +92,11 @@ export default function AddProduct() {
                 console.error('Error uploading image:', error);
             }
         }
-
+    
         setLoading(false);
         return uploadedImageUrls;
     };
-
+    
     const handleSubmit = async () => {
         const uploadedImages = await handleUploadImages();
     
@@ -103,14 +107,16 @@ export default function AddProduct() {
             price: parseFloat(price),
             sizes,
             colors,
-            category: selectedCategory, // Add selected category here
-            images: uploadedImages
+            category: selectedCategory,
+            images: uploadedImages,
+            date,  // Ensure date is included
+            time   // Ensure time is included
         };
     
         console.log('Product Data:', productData);
     
         try {
-            const response = await fetch('https://vogue-backend-1.onrender.com/api/products', {
+            const response = await fetch('http://localhost:3001/api/products', { // Use correct endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -120,14 +126,7 @@ export default function AddProduct() {
     
             if (response.ok) {
                 alert('Product added successfully!');
-                setTitle("");
-                setDescription("");
-                setMrp("");
-                setPrice("");
-                setAddedSizes([]);
-                setAddedColors([]);
-                setImages([]);
-                setSelectedCategory(""); // Reset selected category after submission
+                resetForm();
             } else {
                 alert('Failed to add product.');
             }
@@ -136,6 +135,20 @@ export default function AddProduct() {
             alert('Error adding product.');
         }
     };
+    
+    const resetForm = () => {
+        setTitle("");
+        setDescription("");
+        setMrp("");
+        setPrice("");
+        setAddedSizes([]);
+        setAddedColors([]);
+        setImages([]);
+        setSelectedCategory("");
+        setDate(new Date().toISOString().slice(0, 10));
+        setTime(new Date().toLocaleTimeString('en-US', { hour12: false }));
+    };
+    
     
     
 

@@ -9,7 +9,7 @@ export default function Product() {
 
     const fetchProductData = async () => {
         try {
-            const response = await fetch(`https://vogue-backend-1.onrender.com/api/getProduct/${id}`);
+            const response = await fetch(`http://localhost:3001/api/getProduct/${id}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

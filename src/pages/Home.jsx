@@ -7,6 +7,7 @@ import SiteInsights from '../components/SiteInsights';
 import Reviews from '../components/Reviews';
 import Footer from '../components/Footer';
 import HomeOffer from '../components/HomeOffer';
+import Recent from '../components/Recent';
 
 function Home() {
     const [offerExists, setOfferExists] = useState(false); // Track if offer exists
@@ -44,6 +45,7 @@ function Home() {
 
                 <Categories />
                 <Trending />
+                <Recent/>
                 <SiteInsights />
                 <Reviews />
                 <Footer />
