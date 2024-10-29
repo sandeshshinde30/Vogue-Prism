@@ -1,8 +1,15 @@
 import React from "react";
 import { CiFacebook,CiTwitter,CiYoutube } from "react-icons/ci";
 import { FaInstagram } from "react-icons/fa";
+import { Link as RouterLink, useNavigate } from 'react-router-dom'; 
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
 
 export default function Footer(){
+
+    const navigate = useNavigate();
+    const handleNavigation = (path) => {
+        navigate(path);  
+    };
     return (
         <>
             <div className="flex flex-col bg-darker-green pb-5">
@@ -20,36 +27,49 @@ export default function Footer(){
                 <div className="flex gap-6 lg:w-2/6  justify-center items-center ">
                     <div className="flex flex-col text-white text-[12px] justify-center items-center gap-3">
                         <h2 className="text-sm font-semibold">Quick Links</h2>
-                        <a className="cursor-pointer">Home</a>
-                        <a className="cursor-pointer">Contact Us</a>
-                        <a className="cursor-pointer">About Us</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/')}>HOME</a>
+                        <ScrollLink 
+                            to="cat" 
+                            smooth={true} 
+                            duration={500} 
+                            className='hover:text-green-700 cursor-pointer'
+                         >
+                             CATEGORIES
+                    </ScrollLink>
                     </div>
                     <div className="flex flex-col text-white  text-[12px] justify-center items-center gap-3">
                         <h2 className="text-sm font-semibold">Quick Links</h2>
-                        <a className="cursor-pointer">Home</a>
-                        <a className="cursor-pointer">Contact Us</a>
-                        <a className="cursor-pointer">About Us</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/contactus')}>CONTACT US</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/aboutus')}>ABOUT US</a>
+
                     </div>
                     <div className="flex flex-col text-white text-[12px] justify-center items-center gap-3">
                         <h2 className="text-sm font-semibold">Quick Links</h2>
-                        <a className="cursor-pointer">Home</a>
-                        <a className="cursor-pointer">Contact Us</a>
-                        <a className="cursor-pointer">About Us</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/category')}>PRODUCTS</a>
+
+                        <ScrollLink 
+                            to="rew" 
+                            smooth={true} 
+                            duration={500} 
+                            className='hover:text-green-700 cursor-pointer'
+                         >
+                             REVIEWS
+                    </ScrollLink>
+                      
                     </div>
                 </div>
                 <div className="text-white lg:w-2/6  text-[12px] flex flex-col gap-2">
                     <h2 className="text-sm font-semibold">Contact Us</h2>
                     <p>Email   : support@vogueprism.com</p>
                     <p>Phone   : (123) 458-7890</p>
-                    <p>Address : 123 Fashion Ave,Stayle City,CA 90210</p>
+                    <p>Address : Lakshmi Chowk, Shirala, Sangli, 415408</p>
                 </div>
                 <div>
-                    
                 </div>
                 
             </div>
                <div className="text-white uppercase font-bold text-1xl text-center">
-               <h1 className="">© 2024 VOGUE PRISM. All rights reserved</h1>
+               <h1 className="">© 2024 VOGUE PRISM. All rights reserved</h1>
                </div>
             </div>
         </>

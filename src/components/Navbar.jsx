@@ -39,7 +39,7 @@ function Navbar() {
                         <FaFacebook className="icon-outline hover:text-green-700 cursor-pointer" size={22} />
                         <FaTwitter className="icon-outline hover:text-green-700 cursor-pointer" size={24} />
                         <FaYoutube className="icon-outline hover:text-green-700 cursor-pointer" size={24} />
-                        <AiFillInstagram className="icon-outline hover:text-green-700 cursor-pointer" size={24} />
+                        <AiFillInstagram className="icon-outline hover:text-green-700 cursor-pointer" size={26} />
                     </div>
                     <div className='flex space-x-4 text-md font-bold gap-5'>
                         <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/')}>HOME</a>
