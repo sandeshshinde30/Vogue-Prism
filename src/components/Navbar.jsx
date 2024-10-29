@@ -52,6 +52,9 @@ function Navbar() {
                 CATEGORIES
             </ScrollLink>
                         <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/category')}>PRODUCTS</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/aboutus')}>ABOUT US</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/contactus')}>CONTACT US</a>
+
                         <ScrollLink 
                 to="rew" 
                 smooth={true} 
@@ -60,15 +63,20 @@ function Navbar() {
             >
                 REVIEWS
             </ScrollLink>
+
+
+
                     </div>
                     
                    
                     <Link to="/login">
             <div className='flex lg:mr-20 hover:text-green-700 text-center justify-center items-center gap-2'>
                 <FaUser size={24} />
-                <h2 className=' font-bold hover:text-green-700 align-baseline'>Admin</h2>
+                <h2 className=' font-bold hover:text-green-700 align-baseline'></h2>
             </div>
         </Link>
+
+        
 
                     
                 </div>
@@ -94,6 +102,8 @@ function Navbar() {
                 <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/')}>HOME</a>
                 <a className='hover:text-green-700 cursor-pointer' >CATEGORIES</a>
                 <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/category')} >PRODUCTS</a>
+                <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/aboutus')}>ABOUT US</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/contactus')}>CONTACT US</a>
                 <a className='hover:text-green-700 cursor-pointer'>REVIEWS</a>
 </div>
 

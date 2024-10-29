@@ -20,7 +20,7 @@
 
         return (
             <>
-            <div className="flex justify-center md:flex-row flex-col items-center w-auto  md:h-4/5 lg:mt-28 mt-3 md:mx-36 tracking-[1.0em]">
+            <div className="flex justify-center md:flex-row flex-col items-center w-auto  md:h-4/5 lg:mt-20 mt-3 md:mx-36 tracking-[1.0em]">
                     <div className="w-1/3 flex flex-1 order-2 md:order-1 lg:justify-between justify-center lg:items-center items-center">
                     <div className="lg:text-left lg:text-5xl text-center  lg:mt-0 mt-5 font-extrabold ">
                     <h1 className="text-gray-400 md:text-5xl text-4xl">FASHION</h1> <br />

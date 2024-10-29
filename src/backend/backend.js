@@ -326,6 +326,41 @@ app.get('/api/track-visit', async (req, res) => {
 });
 
 
+const ReviewSchema = new mongoose.Schema({
+    user: String,
+    rating: Number,
+    text: String,
+    img: String, // URL of the uploaded image
+    createdAt: { type: Date, default: Date.now }
+});
+
+const Review = mongoose.model('Review', ReviewSchema);
+
+// Route to Add a New Review
+app.post('/api/reviews', async (req, res) => {
+    const { user, rating, text, img } = req.body;
+
+    try {
+        const newReview = new Review({ user, rating, text, img });
+        await newReview.save();
+        res.status(201).json({ message: 'Review added successfully!', review: newReview });
+    } catch (error) {
+        console.error('Error adding review:', error);
+        res.status(500).json({ error: 'Failed to add review.' });
+    }
+});
+
+
+app.get('/api/getReviews', async (req, res) => {
+    try {
+        const reviews = await Review.find().sort({ createdAt: -1 }).limit(3);
+        res.status(200).json(reviews);
+    } catch (error) {
+        console.error('Error retrieving reviews:', error); // Log the error
+        res.status(500).json({ error: 'Failed to retrieve reviews.' });
+    }
+});
+
 
 // Start the server
 app.listen(3001, () => {
