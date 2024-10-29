@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
+import config from '../config';
+
 
 export default function DeleteProduct() {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -22,7 +24,7 @@ export default function DeleteProduct() {
     // Fetch products based on selected category and search term
     const fetchProducts = async () => {
         setLoading(true);
-        const url = `https://vogue-backend-1.onrender.com/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
+        const url = `${config.BASE_URL}/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
         console.log("Fetching from URL:", url); // Log the URL
         try {
             const response = await fetch(url);
@@ -58,7 +60,7 @@ const handleDelete = async (productId) => {
     if (confirmed) {
         try {
             console.log("Deleting product with ID:", productId); // Log the product ID
-            const response = await fetch(`https://vogue-backend-1.onrender.com/api/deleteProduct/${productId}`, {
+            const response = await fetch(`${config.BASE_URL}/api/deleteProduct/${productId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

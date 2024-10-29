@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
+import config from '../config';
+
 
 export default function Offers() {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -16,7 +18,7 @@ export default function Offers() {
     useEffect(() => {
         const fetchOffers = async () => {
             try {
-                const response = await fetch("https://vogue-backend-1.onrender.com/api/offers");
+                const response = await fetch(`${config.BASE_URL}/api/offers`);
                 if (response.ok) {
                     const data = await response.json();
                     setOffers(data);
@@ -43,7 +45,7 @@ export default function Offers() {
         if (!window.confirm("Are you sure you want to delete this offer?")) return;
 
         try {
-            const response = await fetch(`https://vogue-backend-1.onrender.com/api/offers/${offerId}`, {
+            const response = await fetch(`${config.BASE_URL}/api/offers/${offerId}`, {
                 method: "DELETE",
             });
 
@@ -95,7 +97,7 @@ export default function Offers() {
 
     const storeOfferInDB = async (imageUrl) => {
         try {
-            const response = await fetch("https://vogue-backend-1.onrender.com/api/offers", {
+            const response = await fetch(`${config.BASE_URL}/api/offers`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ imageUrl }),

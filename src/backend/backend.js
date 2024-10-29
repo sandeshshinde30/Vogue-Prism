@@ -153,6 +153,41 @@ app.get('/api/getProducts', async (req, res) => {
     }
 });
 
+// Get products based on category and name (with optional filters)
+app.get('/api/getUpdateProducts', async (req, res) => {
+    const { category, name } = req.query; // Extract query parameters
+    // console.log('Received query:', req.query); // Log received query
+
+    try {
+        const query = {}; // Initialize an empty query object
+
+        // Add category filter if provided
+        if (category) query.category = category;
+
+        // Add name filter if provided (case-insensitive partial match)
+        if (name) query.title = { $regex: name, $options: 'i' };
+
+        // console.log('MongoDB query:', query); // Log the constructed query
+
+        // Fetch products based on query
+        const products = await Product.find(query);
+        // console.log('Fetched products:', products); // Log fetched products
+
+        // Map the products to return only the first image
+        const result = products.map(product => ({
+            ...product._doc,
+            img: product.images[0] || '', // Handle missing images
+        }));
+
+        res.status(200).json(result); // Send the response
+    } catch (error) {
+        console.error('Error retrieving products:', error);
+        res.status(500).json({ error: 'Failed to retrieve products.' });
+    }
+});
+
+
+
 app.delete('/api/deleteProduct/:id', async (req, res) => {
     const productId = req.params.id;
     try {

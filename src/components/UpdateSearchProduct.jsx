@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { BiSolidImageAdd } from "react-icons/bi";
+import config from '../config';
+
 
 export default function UpdateProductPage() {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -10,7 +12,16 @@ export default function UpdateProductPage() {
     const [isUpdating, setIsUpdating] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [loading, setLoading] = useState(false);
-    const category = ["Shirt", "T-shirt", "Jeans", "Formals"];
+    const category = [ 
+    "Shirt",
+    "T-Shirt",
+    "Jeans",
+    "Shorts",
+    "Jackets",
+    "Formals",
+    "Kurtas",
+    "Sports Wear",
+    "Innerwear"];
 
     // Toggle dropdown visibility
     const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
@@ -36,7 +47,7 @@ export default function UpdateProductPage() {
     // Fetch products based on selected category and search term
     const fetchProducts = async () => {
         setLoading(true);
-        const url = `https://vogue-backend-1.onrender.com/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
+        const url = `${config.BASE_URL}/api/getUpdateProducts?category=${selectedCategory}&name=${searchTerm}`;
         console.log("Fetching from URL:", url);
         try {
             const response = await fetch(url);
@@ -193,9 +204,18 @@ function UpdateProduct({ product, onBack }) {
     const [showPicker, setShowPicker] = useState(false);
     const [images, setImages] = useState(product?.images || []);
     const [hoveredIndex, setHoveredIndex] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState(product.category || '');
 
-    const categories = ["Clothing", "Footwear", "Accessories", "Jewelry"]; // Replace with your actual categories
+    const categories = [
+    "Shirt",
+    "T-Shirt",
+    "Jeans",
+    "Shorts",
+    "Jackets",
+    "Formals",
+    "Kurtas",
+    "Sports Wear",
+    "Innerwear"]; // Replace with your actual categories
 
     // Define the handleCategoryChange function
     const handleCategoryChange = (event) => {
@@ -252,7 +272,7 @@ function UpdateProduct({ product, onBack }) {
         }
     
         try {
-            const response = await fetch(`https://vogue-backend-1.onrender.com/api/updateProducts/${product._id}`, {
+            const response = await fetch(`${config.BASE_URL}/api/updateProducts/${product._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -428,7 +448,7 @@ function UpdateProduct({ product, onBack }) {
             <div className="flex flex-col px-5 mt-2 w-1/2">
                 <div className="mt-4">
                     <label htmlFor="category" className="mb-2 font-bold">Select Category</label>
-                    <select 
+                    <select     
                         id="category"
                         value={selectedCategory}
                         onChange={handleCategoryChange}

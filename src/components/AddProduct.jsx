@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { SketchPicker } from "react-color";
+import config from '../config';
 
 export default function AddProduct() {
     const [images, setImages] = useState([]);
@@ -118,7 +119,7 @@ const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour12
         console.log('Product Data:', productData);
     
         try {
-            const response = await fetch('http://localhost:3001/api/products', { // Use correct endpoint
+            const response = await fetch(`${config.BASE_URL}/api/products`, { // Use correct endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

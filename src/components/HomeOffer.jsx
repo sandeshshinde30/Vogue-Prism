@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import config from '../config';
+
 
 export default function HomeOffer() {
     const [offerImage, setOfferImage] = useState(null); // Store the offer image URL
@@ -7,7 +9,7 @@ export default function HomeOffer() {
     useEffect(() => {
         const fetchOfferImage = async () => {
             try {
-                const response = await fetch("https://vogue-backend-1.onrender.com/api/offers");
+                const response = await fetch(`${config.BASE_URL}/api/offers`);
                 if (response.ok) {
                     const data = await response.json();
                     if (data.length > 0) {

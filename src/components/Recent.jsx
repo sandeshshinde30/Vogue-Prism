@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
+import config from '../config';
+
 
 export default function Recent() {
     const [recentProducts, setRecentProducts] = useState([]);
@@ -9,7 +11,7 @@ export default function Recent() {
     useEffect(() => {
         const fetchRecentProducts = async () => {
             try {
-                const response = await fetch("http://localhost:3001/api/getRecentProducts");
+                const response = await fetch(`${config.BASE_URL}/api/getRecentProducts`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch recent products.");
                 }

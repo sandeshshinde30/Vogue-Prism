@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+import config from '../config';
 
 
 export default function SiteInsights(){
@@ -13,7 +14,7 @@ export default function SiteInsights(){
     useEffect(() => {
         const fetchProductsCount = async () => {
             try {
-                const response = await fetch("http://localhost:3001/api/getProductsCount");
+                const response = await fetch(`${config.BASE_URL}/api/getProductsCount`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch trending products.");
                 }
@@ -29,7 +30,7 @@ export default function SiteInsights(){
 
         const fetchVisitCount = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/track-visit');
+                const response = await fetch(`${config.BASE_URL}/api/track-visit`);
                 const data = await response.json();
                 setuserCount(data.count);
             } catch (error) {

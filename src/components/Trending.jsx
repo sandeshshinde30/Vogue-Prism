@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // Ensure this import
+import config from '../config';
 
 const Trending = () => {
     const [trendingProducts, setTrendingProducts] = useState([]);
@@ -9,7 +10,7 @@ const Trending = () => {
     useEffect(() => {
         const fetchTrendingProducts = async () => {
             try {
-                const response = await fetch("http://localhost:3001/api/getTrendingProducts");
+                const response = await fetch(`${config.BASE_URL}/api/getTrendingProducts`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch trending products.");
                 }
