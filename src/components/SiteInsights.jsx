@@ -1,6 +1,48 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
+
 
 export default function SiteInsights(){
+
+
+    const [productCount,setproductCount] = useState(0);
+    const [userCount,setuserCount] = useState(0);
+
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        const fetchProductsCount = async () => {
+            try {
+                const response = await fetch("http://localhost:3001/api/getProductsCount");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch trending products.");
+                }
+                const data = await response.json();
+                setproductCount(data);
+            } catch (error) {
+                console.error("Error fetching trending products:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProductsCount();
+
+        const fetchVisitCount = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/api/track-visit');
+                const data = await response.json();
+                setuserCount(data.count);
+            } catch (error) {
+                console.error('Error fetching visit count:', error);
+            }
+        };
+
+        fetchVisitCount();
+    }, []);
+
+    if (loading) return <p className="text-center mt-20">Loading...</p>;
+
+
     return(
         <>
             <div>
@@ -8,14 +50,14 @@ export default function SiteInsights(){
                     <div className="flex lg:flex-row flex-col bg-[#DAF1DE] tracking-[.15em]  lg:justify-between justify-center items-center rounded-2xl">
                         <div className="bg-[#DAF1DE] lg:h-36 w-2/6 lg:border-r-4  text-dark-green lg:mt-0 rounded-l-2xl">
                             <div className="flex flex-col justify-center items-center p-5 ">
-                                <h1 className="lg:text-6xl text-5xl">50+</h1>
+                                <h1 className="lg:text-6xl text-5xl">{productCount}+</h1>
                                 <h2 className="lg:text-3xl text-2xl">Products</h2>
                             </div>
                         </div>
                         <div className="bg-[#DAF1DE] lg:h-36 w-2/6 lg:border-r-4  text-dark-green ">
                         <div className="flex flex-col justify-center items-center p-5 ">
                             
-                                <h1 className="lg:text-6xl text-5xl">10k+</h1>
+                                <h1 className="lg:text-6xl text-5xl">{userCount}+</h1>
                                 <h2 className="lg:text-3xl text-2xl">Users</h2>
                             </div>
                         </div>

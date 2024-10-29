@@ -9,6 +9,7 @@ export default function AddProduct() {
     const [description, setDescription] = useState("");
     const [mrp, setMrp] = useState("");
     const [price, setPrice] = useState("");
+    const [isTrending,setIsTrending] = useState(false);
     const [sizes, setAddedSizes] = useState([]);
     const [selectedSize, setSelectedSize] = useState("");
     const [colors, setAddedColors] = useState([]);
@@ -107,6 +108,7 @@ const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour12
             price: parseFloat(price),
             sizes,
             colors,
+            isTrending,
             category: selectedCategory,
             images: uploadedImages,
             date,  // Ensure date is included
@@ -143,6 +145,7 @@ const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour12
         setPrice("");
         setAddedSizes([]);
         setAddedColors([]);
+        setIsTrending(false);
         setImages([]);
         setSelectedCategory("");
         setDate(new Date().toISOString().slice(0, 10));
@@ -308,6 +311,28 @@ const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour12
                         ))}
                     </select>
                 </div>
+
+                <div className="mt-1">
+  <label htmlFor="trend" className="mb-2 font-bold">Is Trending?</label>
+  <div className="flex gap-5 justify-start items-start">
+    <input 
+      type="radio" 
+      name="trend" 
+      onClick={() => setIsTrending(true)} 
+      size={12} 
+      className="h-5 w-5" 
+    /> 
+    Yes
+    <input 
+      type="radio" 
+      name="trend" 
+      onClick={() => setIsTrending(false)} 
+      className="h-5 w-5" 
+    /> 
+    No
+  </div>
+</div>
+
             
 
                     <h1 className="font-semibold mt-3">Pictures</h1>

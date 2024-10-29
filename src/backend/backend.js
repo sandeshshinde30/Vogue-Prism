@@ -24,6 +24,7 @@ const ProductSchema = new mongoose.Schema({
     category: String,
     sizes: [String],
     colors: [String],
+    isTrending : Boolean,
     images: [String],
     date: String, // Store the date
     time: String, // Store the time
@@ -42,6 +43,17 @@ const OfferSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 const Offer = mongoose.model('Offer', OfferSchema);
+
+
+
+const VisitSchema = new mongoose.Schema({
+    count: { type: Number, default: 0 }, // Track total visits
+});
+
+const Visit = mongoose.model('Visit', VisitSchema);
+module.exports = Visit;
+
+
 
 // Route to Add a New Offer Image
 app.post('/api/offers', async (req, res) => {
@@ -222,6 +234,96 @@ app.get('/api/getRecentProducts', async (req, res) => {
 });
 
 
+app.get('/api/getTrendingProducts', async (req, res) => {
+    try {
+        // Query to fetch products where isTrending is true
+        const query = { isTrending: true };
+
+        // Fetch the matching products with a limit of 6
+        const products = await Product.find(query).sort({ createdAt: -1 }).limit(6);
+
+        // Format the response to include the first image
+        const result = products.map(product => ({
+            ...product._doc,
+            img: product.images[0] // Include only the first image
+        }));
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error retrieving trending products:', error);
+        res.status(500).json({ error: 'Failed to retrieve trending products.' });
+    }
+});
+
+app.get('/api/getTrendingProducts', async (req, res) => {
+    try {
+        // Query to fetch products where isTrending is true
+        const products = await Product.find({ isTrending: true }).sort({ createdAt: -1 });
+
+        // Format the response to include only the first image
+        const result = products.map(product => ({
+            ...product._doc,
+            img: product.images[0]  // Include only the first image
+        }));
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error retrieving trending products:', error);
+        res.status(500).json({ error: 'Failed to retrieve trending products.' });
+    }
+});
+
+
+app.get('/api/getProductsCount', async (req, res) => {
+   
+    try {
+              
+
+        const products = await Product.countDocuments();
+        const result = products;
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error retrieving products:', error);
+        res.status(500).json({ error: 'Failed to retrieve count products.' });
+    }
+});
+
+
+// const Visit = require('./models/Visit');
+
+// Initialize the visit count on server start
+async function initializeVisitCount() {
+    try {
+        let visit = await Visit.findOne();
+        if (!visit) {
+            console.log('Initializing visit counter...');
+            visit = new Visit({ count: 0 });
+            await visit.save();
+        }
+    } catch (error) {
+        console.error('Error initializing visit count:', error);
+    }
+}
+
+initializeVisitCount();
+
+
+// Route to increment and get the visit count
+app.get('/api/track-visit', async (req, res) => {
+    try {
+        let visit = await Visit.findOne();
+
+        // Increment visit count
+        visit.count += 1;
+        await visit.save();
+
+        res.status(200).json({ count: visit.count });
+    } catch (error) {
+        console.error('Error tracking visit:', error);
+        res.status(500).json({ error: 'Failed to track visit.' });
+    }
+});
 
 
 

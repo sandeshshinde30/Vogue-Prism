@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 
 export default function Recent() {
     const [recentProducts, setRecentProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate(); 
 
-    // Fetch recent products from the backend API on component mount
     useEffect(() => {
         const fetchRecentProducts = async () => {
             try {
@@ -22,18 +21,19 @@ export default function Recent() {
                 setLoading(false);
             }
         };
-
         fetchRecentProducts();
     }, []);
-
-    if (recentProducts.length === 0) return null;
 
     if (loading) {
         return <p className="text-center mt-20">Loading...</p>;
     }
 
     const handleProductClick = (id) => {
-        navigate(`/product/${id}`); // Navigate to product details page
+        navigate(`/product/${id}`); 
+    };
+
+    const handleViewAll = () => {
+        navigate("/category?category=recent");  // Navigate with query parameter
     };
 
     return (
@@ -47,7 +47,7 @@ export default function Recent() {
                 {recentProducts.map((product) => (
                     <div
                         key={product.id}
-                        onClick={() => handleProductClick(product._id)} // Handle click to navigate
+                        onClick={() => handleProductClick(product._id)}
                         className="cursor-pointer mt-10 flex-shrink-0 lg:flex-shrink lg:w-full w-2/5 flex flex-col justify-center items-start text-left"
                     >
                         <div className="p-3 bg-[#E1DFDD] rounded-md w-full h-auto lg:self-center flex justify-center items-center overflow-hidden">
@@ -65,13 +65,18 @@ export default function Recent() {
                         </div>
                     </div>
                 ))}
-                <button className="flex-shrink-0 text-[12px] border text-white border-gray-400 py-3 px-6 mt-10 tracking-wider bg-dark-green hover:bg-darker-green w-auto rounded-xl self-center lg:hidden">
+                <button
+                    onClick={handleViewAll}  // Handle View All click
+                    className="flex-shrink-0 text-[12px] border text-white border-gray-400 py-3 px-6 mt-10 tracking-wider bg-dark-green hover:bg-darker-green w-auto rounded-xl self-center lg:hidden"
+                >
                     View All
                 </button>
             </div>
 
-            {/* View All Button - Visible only on larger screens */}
-            <button className="hidden lg:flex lg:text-1xl text-1xl border text-white border-gray-400 py-3 lg:px-8 px-4 mt-5 tracking-wider bg-dark-green hover:bg-darker-green w-auto rounded-xl self-center">
+            <button
+                onClick={handleViewAll}  // Handle View All click
+                className="hidden lg:flex lg:text-1xl text-1xl border text-white border-gray-400 py-3 lg:px-8 px-4 mt-5 tracking-wider bg-dark-green hover:bg-darker-green w-auto rounded-xl self-center"
+            >
                 View All
             </button>
         </div>

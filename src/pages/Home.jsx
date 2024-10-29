@@ -32,6 +32,19 @@ function Home() {
         };
 
         fetchOfferStatus();
+
+        const trackVisit = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/api/track-visit');
+                const data = await response.json();
+                console.log('Total visits:', data.count);
+            } catch (error) {
+                console.error('Error tracking visit:', error);
+            }
+        };
+
+        trackVisit(); // Track visit on page load
+        
     }, []);
 
     return (
