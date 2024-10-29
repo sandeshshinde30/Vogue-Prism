@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { HiMiniUserCircle, HiStar } from "react-icons/hi2";
-
+import config from '../config';
 export default function Reviews() {
   const [reviews, setReviews] = useState([]); // Ensure this is initialized as an empty array
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,7 +58,7 @@ export default function Reviews() {
       };
 
       try {
-        const response = await fetch('http://localhost:3001/api/reviews', {
+        const response = await fetch(`${config.BASE_URL}/api/reviews`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ export default function Reviews() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/getReviews');
+        const response = await fetch(`${config.BASE_URL}/api/getReviews`);
         const data = await response.json(); // Always parse JSON response
         if (response.ok) {
           console.log(data); // Log the data to see its structure
