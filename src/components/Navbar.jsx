@@ -36,10 +36,10 @@ function Navbar() {
                 {/* Desktop Navigation */}
                 <div className='hidden md:flex flex-1 justify-around w-full mt-2 tracking-wide'>
                     <div className='flex space-x-4'>
-                        <FaFacebook className="icon-outline hover:text-green-700 cursor-pointer" size={22} />
-                        <FaTwitter className="icon-outline hover:text-green-700 cursor-pointer" size={24} />
-                        <FaYoutube className="icon-outline hover:text-green-700 cursor-pointer" size={24} />
-                        <AiFillInstagram className="icon-outline hover:text-green-700 cursor-pointer" size={26} />
+                       <a href="" target='_blank'> <FaFacebook className="icon-outline hover:text-green-700 cursor-pointer" size={22} /></a>
+                        <a href="" target='_blank'><FaTwitter className="icon-outline hover:text-green-700 cursor-pointer" size={24} /></a>
+                        <a href="https://youtube.com/@vogueprism2024?si=MtD5PJpIyjyBQkFE" target='_blank'><FaYoutube className="icon-outline hover:text-green-700 cursor-pointer" size={24} /></a>
+                        <a href="https://www.instagram.com/vogue_prism?igsh=bXhkdGJiOHgwb3By" target='_blank'><AiFillInstagram className="icon-outline hover:text-green-700 cursor-pointer" size={26} /></a>
                     </div>
                     <div className='flex space-x-4 text-md font-bold gap-5'>
                         <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/')}>HOME</a>
