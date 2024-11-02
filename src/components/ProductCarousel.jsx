@@ -39,10 +39,10 @@ export default function ProductCarousel({ slides }) {
 
       <div className="hidden absolute bottom-4 left-1/2 -translate-x-1/2 md:flex gap-16 text-4xl">
         <button onClick={previousSlide}>
-          <FaArrowCircleLeft className="opacity-80 text-gray-300" />
+          <FaArrowCircleLeft className="opacity-80 text-darker-green" />
         </button>
         <button onClick={nextSlide}>
-          <FaArrowCircleRight className="opacity-80 text-gray-300" />
+          <FaArrowCircleRight className="opacity-80 text-darker-green" />
         </button>
       </div>
 

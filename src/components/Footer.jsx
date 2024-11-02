@@ -49,7 +49,7 @@ export default function Footer(){
                     </div>
                     <div className="flex flex-col text-white text-[12px] justify-center items-center gap-3">
                         <h2 className="text-sm font-semibold">Quick Links</h2>
-                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/category')}>PRODUCTS</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/category?category=category')}>PRODUCTS</a>
 
                         <ScrollLink 
                             to="rew" 

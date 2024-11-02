@@ -13,7 +13,7 @@
         ]
 
         const handleShopNow = () => {
-            navigate('/category'); // Navigate to the Product page
+            navigate('/category?category=category'); // Navigate to the Product page
         };
 
 

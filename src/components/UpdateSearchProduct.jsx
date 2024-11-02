@@ -205,23 +205,24 @@ function UpdateProduct({ product, onBack }) {
     const [images, setImages] = useState(product?.images || []);
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(product.category || '');
+    const [isTrending, setIsTrending] = useState(product.isTrending || false);
 
     const categories = [
-    "Shirt",
-    "T-Shirt",
-    "Jeans",
-    "Shorts",
-    "Jackets",
-    "Formals",
-    "Kurtas",
-    "Sports Wear",
-    "Innerwear"]; // Replace with your actual categories
+        "Shirt",
+        "T-Shirt",
+        "Jeans",
+        "Shorts",
+        "Jackets",
+        "Formals",
+        "Kurtas",
+        "Sports Wear",
+        "Innerwear"
+    ]; // Replace with your actual categories
 
-    // Define the handleCategoryChange function
     const handleCategoryChange = (event) => {
         setSelectedCategory(event.target.value);
     };
-    
+
     const handleAddSize = () => {
         if (selectedSize && !sizes.includes(selectedSize)) {
             setSizes([...sizes, selectedSize]);
@@ -248,6 +249,10 @@ function UpdateProduct({ product, onBack }) {
         setImages((prevImages) => [...prevImages, ...newImages]);
     };
 
+    const handleTrendingToggle = () => {
+        setIsTrending((prevTrending) => !prevTrending);
+    };
+
     const handleSubmit = async () => {
         // Prepare data to send to the server
         const updatedProduct = {
@@ -257,9 +262,11 @@ function UpdateProduct({ product, onBack }) {
             price,
             sizes,
             colors,
+            category: selectedCategory,
+            isTrending,
             images: []
         };
-    
+
         // Check and upload images to Cloudinary
         for (const img of images) {
             if (img.startsWith('blob:')) { // Check if the image is a local file
@@ -270,7 +277,7 @@ function UpdateProduct({ product, onBack }) {
                 updatedProduct.images.push(img); // If already uploaded, just push the URL
             }
         }
-    
+
         try {
             const response = await fetch(`${config.BASE_URL}/api/updateProducts/${product._id}`, {
                 method: 'PUT',
@@ -279,11 +286,11 @@ function UpdateProduct({ product, onBack }) {
                 },
                 body: JSON.stringify(updatedProduct),
             });
-    
+
             if (!response.ok) {
                 throw new Error('Failed to update product'); // Throw an error if the response is not OK
             }
-    
+
             alert('Product updated successfully!'); // Confirmation message
             onBack(); // Optionally navigate back or reset state
         } catch (error) {
@@ -291,26 +298,25 @@ function UpdateProduct({ product, onBack }) {
             alert('Failed to update product.');
         }
     };
-    
+
     // Function to upload an image to Cloudinary
     const uploadImageToCloudinary = async (imageFile) => {
         const formData = new FormData();
         formData.append('file', imageFile);
         formData.append('upload_preset', 'vogue_prism'); // Replace with your upload preset
-    
+
         const response = await fetch('https://api.cloudinary.com/v1_1/dldrjl92a/image/upload', {
             method: 'POST',
             body: formData,
         });
-    
+
         if (!response.ok) {
             throw new Error('Failed to upload image to Cloudinary');
         }
-    
+
         const data = await response.json();
         return data.secure_url; // Return the URL of the uploaded image
     };
-    
     
 
     return (
@@ -462,6 +468,30 @@ function UpdateProduct({ product, onBack }) {
                         ))}
                     </select>
                 </div>
+
+
+                <div className="mt-1">
+  <label htmlFor="trend" className="mb-2 font-bold">Is Trending?</label>
+  <div className="flex gap-5 justify-start items-start">
+    <input 
+      type="radio" 
+      name="trend" 
+      onClick={() => setIsTrending(true)} 
+      checked={isTrending === true} 
+      size={12} 
+      className="h-5 w-5" 
+    /> 
+    Yes
+    <input 
+      type="radio" 
+      name="trend" 
+      checked={isTrending === false} 
+      onClick={() => setIsTrending(false)} 
+      className="h-5 w-5" 
+    /> 
+    No
+  </div>
+</div>
     
                 <h1 className="font-semibold mt-3">Pictures</h1>
                 <div className="bg-white mt-3 rounded-lg">

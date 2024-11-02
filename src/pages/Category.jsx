@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom"; 
+import config from '../config';
 
 export default function Category() {
     const [products, setProducts] = useState([]);
@@ -14,10 +15,13 @@ export default function Category() {
     const fetchProducts = async () => {
         setLoading(true);
         const url = selectedCategory === 'recent'
-            ? "http://localhost:3001/api/getRecentProducts"
-            : selectedCategory === 'trending'
-            ? "http://localhost:3001/api/getTrendingProducts"
-            : `http://localhost:3001/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
+    ? `${config.BASE_URL}/api/getRecentProducts`
+    : selectedCategory === 'trending'
+    ? `${config.BASE_URL}/api/getTrendingProducts`
+    :selectedCategory === 'category'
+    ? `${config.BASE_URL}/api/getProducts`
+    : `${config.BASE_URL}/api/getProductsByCategory?category=${selectedCategory}`;
+
     
         try {
             const response = await fetch(url);

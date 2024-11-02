@@ -8,6 +8,7 @@ import Reviews from '../components/Reviews';
 import Footer from '../components/Footer';
 import HomeOffer from '../components/HomeOffer';
 import Recent from '../components/Recent';
+import config from '../config';
 
 function Home() {
     const [offerExists, setOfferExists] = useState(false); // Track if offer exists
@@ -17,7 +18,7 @@ function Home() {
     useEffect(() => {
         const fetchOfferStatus = async () => {
             try {
-                const response = await fetch("https://vogue-backend-1.onrender.com/api/offers");
+                const response = await fetch(`${config.BASE_URL}/api/offers`);
                 if (response.ok) {
                     const data = await response.json();
                     setOfferExists(data.length > 0); // If offers exist, set state to true
@@ -35,7 +36,7 @@ function Home() {
 
         const trackVisit = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/track-visit');
+                const response = await fetch(`${config.BASE_URL}/api/track-visit`);
                 const data = await response.json();
                 console.log('Total visits:', data.count);
             } catch (error) {
