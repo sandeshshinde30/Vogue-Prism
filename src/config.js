@@ -1,6 +1,6 @@
 // src/config.js
 const config = {
-    BASE_URL: 'http://localhost:4000' // Change this to your desired base URL
+    BASE_URL: 'https://vogue-backend-1.onrender.com' // Change this to your desired base URL
 };
 
 export default config;
