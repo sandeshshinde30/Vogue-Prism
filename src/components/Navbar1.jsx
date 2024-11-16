@@ -6,7 +6,7 @@ import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebook, FaTwitter, FaYoutube, FaInstagram, FaUser, FaBars, FaTimes } from 'react-icons/fa';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'; // Renamed to RouterLink
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
-function Navbar() {
+function Navbar1() {
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -27,11 +27,11 @@ function Navbar() {
             </div>
 
             {/* Main Content */}
-            <div className='flex flex-col md:items-center md:justify-between ml-4 mt-0 lg:ml-10 '>
+            <div className='flex flex-col md:items-center md:justify-between ml-4 mt-5 lg:ml-10 '>
                 {/* Logo Section */}
-                <div className='flex-1 flex mt-3'>
-                    <img src="vogueBlack.png" alt="VOGUE_PRISM" className='w-24 mt-0' />
-                </div>
+                {/* <div className='flex-1 flex mt-3'>
+                    <img src="/vogueBlack.png" alt="VOGUE_PRISM" className='w-24 mt-0' />
+                </div> */}
 
                 {/* Desktop Navigation */}
                 <div className='hidden md:flex flex-1 justify-around w-full mt-2 tracking-wide'>
@@ -120,4 +120,4 @@ function Navbar() {
     );
 }
 
-export default Navbar;
+export default Navbar1;
