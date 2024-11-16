@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Navbar1 from '../components/Navbar1';
 import ProductCarousel from "../components/ProductCarousel"
 import config from '../config';
+import Navbar from '../components/Navbar';
 
 export default function Product() {
     const { id } = useParams();
@@ -38,7 +39,7 @@ export default function Product() {
 
     return (
         <div className="w-full md:h-screen h-auto md:mb-0 mb-10">
-            <Navbar />
+            <Navbar1 />
             <div className="flex lg:flex-row flex-col w-full h-auto mt-5 lg:h-[80%]">
                 <div className="flex lg:w-1/2 w-full relative">
                     {/* <div className="lg:bg-dark-green lg:w-[70%] w-full h-full absolute left-0 top-0"></div> */}
