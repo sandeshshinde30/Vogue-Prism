@@ -10,7 +10,17 @@ export default function DeleteProduct() {
     const [products, setProducts] = useState([]); // State for fetched products
     const [loading, setLoading] = useState(false); // State for loading status
 
-    const category = ["Shirt", "T-shirt", "Jeans", "Formals", "Clothing"];
+    const category = [
+        "Shirt",
+        "T-Shirt",
+        "Jeans",
+        "Shorts",
+        "Jackets",
+        "Formals",
+        "Kurtas",
+        "Sports Wear",
+        "Innerwear"
+    ];
 
     // Toggle dropdown visibility
     const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
@@ -24,7 +34,7 @@ export default function DeleteProduct() {
     // Fetch products based on selected category and search term
     const fetchProducts = async () => {
         setLoading(true);
-        const url = `${config.BASE_URL}/api/getProducts?category=${selectedCategory}&name=${searchTerm}`;
+        const url = `${config.BASE_URL}/api/getUpdateProducts?category=${selectedCategory}&name=${searchTerm}`;
         console.log("Fetching from URL:", url); // Log the URL
         try {
             const response = await fetch(url);
