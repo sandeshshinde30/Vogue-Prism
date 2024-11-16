@@ -59,7 +59,7 @@ function Dashboard() {
                 </div>
             </div>
             <div className='p-11 pt-0 w-[900px]'>   
-                <img src="../graph.png" alt="" className='w-[100%] h-[100%]'/>
+                {/* <img src="../graph.png" alt="" className='w-[100%] h-[100%]'/> */}
             </div>
         </>
     )

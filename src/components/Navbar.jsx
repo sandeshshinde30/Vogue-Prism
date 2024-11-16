@@ -52,8 +52,8 @@ function Navbar() {
                 CATEGORIES
             </ScrollLink>
                         <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/category?category=category')}>PRODUCTS</a>
-                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/aboutus')}>ABOUT US</a>
-                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/contactus')}>CONTACT US</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/')}>ABOUT US</a>
+                        <a className='hover:text-green-700 cursor-pointer' onClick={() => handleNavigation('/')}>CONTACT US</a>
 
                         <ScrollLink 
                 to="rew" 

@@ -21,8 +21,8 @@ class App extends Component {
         <Route path="/product/:id" element={<Product />} />
         <Route path='/admin' element={<AdminMain/>}/>
         <Route path='/login' element={<AdminLogin/>}/>
-        <Route path='/contactus' element={<ContactUs/>}/>
-        <Route path='/aboutus' element={<AboutUs/>}/>
+        <Route path='/' element={<ContactUs/>}/>
+        <Route path='/' element={<AboutUs/>}/>
         <Route path='/category' element={<Category/>}/>
         
       
