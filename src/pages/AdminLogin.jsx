@@ -11,10 +11,10 @@ function AdminLogin() {
         e.preventDefault();
 
         // Static values for validation
-        const validUsername = 'admin@example.com'; // replace with your static username
-        const validPassword = 'pass'; // replace with your static password
+        const validUsername = 'director@vogueprism.com'; // replace with your static username
+        const validPassword = 'vogueprism'; // replace with your static password
 
-        // Check credentials
+        // Check credentials    
         if (username === validUsername && password === validPassword) {
             // Navigate to AdminMain page
             navigate('/admin');
