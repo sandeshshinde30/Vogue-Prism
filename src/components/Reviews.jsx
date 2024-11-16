@@ -119,13 +119,14 @@ export default function Reviews() {
             reviews.map((review, index) => (
               <div
                 key={review.id}
-                className={`relative flex h-72 flex-col lg:w-2/6 h-86 rounded-xl items-center ${
+                className={`relative flex md:h-80 flex-col lg:w-2/6 h-86 rounded-xl items-center ${
                   index === 1 ? "bg-dark-green" : "bg-gray-300"
                 }`}
               >
                 <div className="absolute -top-16">
                   <img src={review.img} alt="" className="h-32 w-32 rounded-full" />
                 </div>
+                
                 <div
                   className={`flex pt-20 ${
                     index === 1 ? "text-white" : "text-darker-green"
@@ -135,8 +136,13 @@ export default function Reviews() {
                     <HiStar key={i} size={32} />
                   ))}
                 </div>
+                <div  className={`px-10 py-1 text-justify ${
+                    index === 1 ? "text-white" : "text-darker-green"
+                  }`}>
+                  <h1>{review.user}</h1>
+                </div>
                 <p
-                  className={`px-10 py-6 text-justify ${
+                  className={`px-10 py-4 text-justify ${
                     index === 1 ? "text-white" : "text-darker-green"
                   }`}
                 >
