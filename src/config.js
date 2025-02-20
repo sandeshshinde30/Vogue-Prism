@@ -1,6 +1,5 @@
-// src/config.js
 const config = {
-    BASE_URL:'http://65.0.170.2:3000' 
+    BASE_URL: 'https://vogueprism.com'
 };
 
 export default config;
