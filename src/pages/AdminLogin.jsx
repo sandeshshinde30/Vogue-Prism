@@ -14,21 +14,22 @@ function AdminLogin() {
         const validUsername = 'director@vogueprism.com'; // replace with your static username
         const validPassword = 'vogueprism'; // replace with your static password
 
-        // Check credentials    
+        // Check credentials --------------------------
         if (username === validUsername && password === validPassword) {
             // Navigate to AdminMain page
             navigate('/admin');
         } else {
             alert('Invalid credentials, please try again.');
         }
-    };
+    };   
+        
 
     return (
         <>
             {/* <div className="backgroundd">
                 <div className="shape"></div>
                 <div className="shape"></div>
-            </div> */}
+            </div>   */    }
 
             <div className='main-div flex'>
                 <form onSubmit={handleSubmit}>
@@ -50,7 +51,7 @@ function AdminLogin() {
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                    />
+                     />
 
                     <button className="submitbutton" type="submit">Log In</button>
                 </form>

@@ -44,8 +44,10 @@ function Home() {
             }
         };
 
+
         trackVisit(); // Track visit on page load
-        
+
+
     }, []);
 
     return (
