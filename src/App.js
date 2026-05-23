@@ -8,6 +8,7 @@ import AdminLogin from './pages/AdminLogin';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Category from './pages/Category'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
         <Route path='/' element={<ContactUs/>}/>
         <Route path='/' element={<AboutUs/>}/>
         <Route path='/category' element={<Category/>}/>
+        <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
         
       
 
