@@ -37,7 +37,7 @@ export default function JoinCommunity() {
         Join Now
       </a>
 
-      <p className="text-xs text-gray-600 mt-8">© Vogue Prism. No Refund. Exchange Only.</p>
+      <p className="text-xs text-gray-600 mt-8">© Vogue Prism.</p>
     </div>
   );
 }
